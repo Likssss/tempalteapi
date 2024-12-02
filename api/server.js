@@ -7,16 +7,25 @@ const path = require('path');
 const app = express();
 const port = process.env.PORT || 3001;
 
-// Allow CORS from specific origin
+// Allow CORS from specific origins
 const corsOptions = {
-    origin: 'https://templatewed1.vercel.app', // Replace with your frontend URL
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type'],
-    optionsSuccessStatus: 204
+    origin: ['https://templatewed1.vercel.app', 'http://localhost:3000'], // Include your frontend URL and localhost for testing
+    methods: ['GET', 'POST', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+    preflightContinue: true,
+    optionsSuccessStatus: 204 // Some legacy browsers (IE11, various SmartTVs) choke on 204
 };
 
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
+
+app.options('*', cors(corsOptions)); // Enable pre-flight requests for all routes
+
+// Test root route
+app.get('/', (req, res) => {
+    res.send('API is working');
+});
 
 // Endpoint to save wishes
 app.post('/api/saveWish', (req, res) => {
