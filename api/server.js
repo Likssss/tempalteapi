@@ -6,7 +6,16 @@ const path = require('path');
 
 const app = express();
 const port = process.env.PORT || 3001;
-app.use(cors());
+
+// Allow CORS from specific origin
+const corsOptions = {
+    origin: 'https://templatewed1.vercel.app', // Replace with your frontend URL
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type'],
+    optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 
 // Endpoint to save wishes
@@ -57,5 +66,5 @@ app.get('/api/getWishes', (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+    console.log(`API running at http://localhost:${port}`);
 });
