@@ -9,9 +9,6 @@ const port = process.env.PORT || 3001;
 app.use(cors());
 app.use(bodyParser.json());
 
-// Serve static files from the React app
-app.use(express.static(path.join(__dirname, '..', 'build')));
-
 // Endpoint to save wishes
 app.post('/api/saveWish', (req, res) => {
     const { name, message } = req.body;
@@ -57,11 +54,6 @@ app.get('/api/getWishes', (req, res) => {
     } else {
         res.send('No wishes found');
     }
-});
-
-// The "catchall" handler: for any request that doesn't match one above, send back React's index.html file.
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'build', 'index.html'));
 });
 
 app.listen(port, () => {
