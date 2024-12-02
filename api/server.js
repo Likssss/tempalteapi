@@ -7,14 +7,14 @@ const path = require('path');
 const app = express();
 const port = process.env.PORT || 3001;
 
-// Allow CORS from specific origins
+// Allow CORS from specific origin
 const corsOptions = {
-    origin: ['https://templatewed1.vercel.app', 'http://localhost:3000'], // Include your frontend URL and localhost for testing
+    origin: ['https://templatewed1.vercel.app', 'http://localhost:3000'], // Include both your frontend URL and localhost for testing
     methods: ['GET', 'POST', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+    allowedHeaders: ['Content-Type'],
+    credentials: true,
     preflightContinue: true,
-    optionsSuccessStatus: 204 // Some legacy browsers (IE11, various SmartTVs) choke on 204
+    optionsSuccessStatus: 204
 };
 
 app.use(cors(corsOptions));
